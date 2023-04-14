@@ -14,7 +14,11 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-Tasks-TasksTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-Tasks-TasksTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+<<<<<<< HEAD
 		42A37DF001DE4238A897311C /* Lato.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 27DEDF503543453E8BC7E2BB /* Lato.ttf */; };
+=======
+		62371E99C8984AEC94F60930 /* Lato.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E0AB0CD035AA4245B6E31EF3 /* Lato.ttf */; };
+>>>>>>> 49e2fcc4164cf082647ebc38db074df2126cfc05
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,7 +49,11 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Tasks/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-Tasks-TasksTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tasks-TasksTests.release.xcconfig"; path = "Target Support Files/Pods-Tasks-TasksTests/Pods-Tasks-TasksTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+<<<<<<< HEAD
 		27DEDF503543453E8BC7E2BB /* Lato.ttf */ = {isa = PBXFileReference; name = "Lato.ttf"; path = "../assets/fonts/Lato.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+=======
+		E0AB0CD035AA4245B6E31EF3 /* Lato.ttf */ = {isa = PBXFileReference; name = "Lato.ttf"; path = "../assets/fonts/Lato.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+>>>>>>> 49e2fcc4164cf082647ebc38db074df2126cfc05
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,7 +132,11 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+<<<<<<< HEAD
 				26A0900F37AA4705BC92B65B /* Resources */,
+=======
+				2212A43040014A33B5A3DC2E /* Resources */,
+>>>>>>> 49e2fcc4164cf082647ebc38db074df2126cfc05
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -151,10 +163,17 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
 		26A0900F37AA4705BC92B65B /* Resources */ = {
 			isa = "PBXGroup";
 			children = (
 				27DEDF503543453E8BC7E2BB /* Lato.ttf */,
+=======
+		2212A43040014A33B5A3DC2E /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				E0AB0CD035AA4245B6E31EF3 /* Lato.ttf */,
+>>>>>>> 49e2fcc4164cf082647ebc38db074df2126cfc05
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -256,7 +275,11 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+<<<<<<< HEAD
 				42A37DF001DE4238A897311C /* Lato.ttf in Resources */,
+=======
+				62371E99C8984AEC94F60930 /* Lato.ttf in Resources */,
+>>>>>>> 49e2fcc4164cf082647ebc38db074df2126cfc05
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
