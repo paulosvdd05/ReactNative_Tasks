@@ -22,48 +22,19 @@ export default class TaskList extends Component {
             desc: 'Ler Livro de React Native',
             estimateAt: new Date(),
             doneAt: null,
-        }, {
-            id: Math.random(),
-            desc: 'Ler Livro de React Native',
-            estimateAt: new Date(),
-            doneAt: null,
-        }, {
-            id: Math.random(),
-            desc: 'Ler Livro de React Native',
-            estimateAt: new Date(),
-            doneAt: null,
-        }, {
-            id: Math.random(),
-            desc: 'Ler Livro de React Native',
-            estimateAt: new Date(),
-            doneAt: null,
-        }, {
-            id: Math.random(),
-            desc: 'Ler Livro de React Native',
-            estimateAt: new Date(),
-            doneAt: null,
-        }, {
-            id: Math.random(),
-            desc: 'Ler Livro de React Native',
-            estimateAt: new Date(),
-            doneAt: null,
-        }, {
-            id: Math.random(),
-            desc: 'Ler Livro de React Native',
-            estimateAt: new Date(),
-            doneAt: null,
-        }, {
-            id: Math.random(),
-            desc: 'Ler Livro de React Native',
-            estimateAt: new Date(),
-            doneAt: null,
-        }, {
-            id: Math.random(),
-            desc: 'Ler Livro de React Native',
-            estimateAt: new Date(),
-            doneAt: null,
         }
         ]
+    }
+
+    toggleTask = taskId =>{
+        const tasks = [...this.state.tasks]
+        tasks.forEach(task => {
+            if(task.id === taskId){
+                task.doneAt = task.doneAt ? null : new Date()
+            }
+        })
+
+        this.setState({tasks})
     }
 
     render() {
@@ -80,7 +51,7 @@ export default class TaskList extends Component {
                     <FlatList
                         data={this.state.tasks}
                         keyExtractor={item => `${item.id}`}
-                        renderItem={({item}) => <Task {...item} />}
+                        renderItem={({item}) => <Task {...item} toggleTask={this.toggleTask}/>}
                     />
 
                 </View>
