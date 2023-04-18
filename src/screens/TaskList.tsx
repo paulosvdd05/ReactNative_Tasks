@@ -13,7 +13,7 @@ export default class TaskList extends Component {
         return (
             <View style={styles.container}>
                 <ImageBackground style={styles.background} source={todayImage}>
-                <View>
+                <View style={styles.titleBar}>
                     <Text>Hoje</Text>
                     <Text>{today}</Text>
                 </View>
@@ -38,5 +38,9 @@ const styles = StyleSheet.create({
     },
     taskList: {
         flex: 7
+    },
+    titleBar: {
+        flex: 1,
+        justifyContent: 'flex-end'
     }
 })
