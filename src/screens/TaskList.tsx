@@ -25,6 +25,7 @@ export default class TaskList extends Component {
                     doneAt={new Date()} />
                     <Task desc="Ler Livro" estimateAt={new Date()}
                     doneAt={null} />
+                    
                 </View>
             </View>
 

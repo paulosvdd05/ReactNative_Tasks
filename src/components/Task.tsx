@@ -2,6 +2,9 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import {Icon} from '@rneui/themed'
 
+import moment from 'moment'
+import 'moment/locale/pt-br'
+
 
 import commonStyles from '../commonStyles'
 
@@ -10,6 +13,9 @@ export default props => {
     const doneOrNotStyle = props.doneAt != null ?
         {textDecorationLine: 'line-through'} : {}
 
+        const date = props.doneAt ? props.doneAt : props.estimateAt
+        const formattedDate = moment(date).locale('pt-br').format('ddd, D [de] MMMM')
+
     return (
         <View style={styles.container}>
             <View style={styles.checkContainer}>
@@ -17,7 +23,7 @@ export default props => {
             </View>
             <View>
                 <Text style={[styles.desc, doneOrNotStyle]}>{props.desc}</Text>
-                <Text>{props.estimateAt + ""}</Text>
+                <Text style={styles.date}>{formattedDate}</Text>
             </View>
 
 
@@ -74,5 +80,10 @@ const styles = StyleSheet.create({
         fontFamily: commonStyles.fontFamily,
         color: commonStyles.colors.mainText,
         fontSize:15
+    },
+    date: {
+        fontFamily: commonStyles.fontFamily,
+        color:commonStyles.colors.subText,
+        fontSize: 12
     }
 })
