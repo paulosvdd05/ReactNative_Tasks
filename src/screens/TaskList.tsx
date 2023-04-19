@@ -16,6 +16,7 @@ export default class TaskList extends Component {
 
     state = {
         showDoneTasks: true,
+        visibleTasks: [],
         tasks: [{
             id: Math.random(),
             desc: 'Comprar Livro de React Native',
@@ -30,19 +31,38 @@ export default class TaskList extends Component {
         ]
     }
 
-    toggleFilter = () =>{
-        this.setState({showDoneTasks: !this.state.showDoneTasks})
+    componentDidMount = () =>{
+        this.filterTasks()
     }
 
-    toggleTask = taskId =>{
+    toggleFilter = () => {
+        this.setState({ showDoneTasks: !this.state.showDoneTasks }, this.filterTasks)
+    }
+
+    
+
+    filterTasks = () => {
+        let visibleTasks = null
+        if (this.state.showDoneTasks) {
+            visibleTasks = [...this.state.tasks]
+        } else {
+            const pending = task => task.doneAt === null
+            visibleTasks = this.state.tasks.filter(pending)
+            
+        }
+
+        this.setState({ visibleTasks })
+    }
+
+    toggleTask = taskId => {
         const tasks = [...this.state.tasks]
         tasks.forEach(task => {
-            if(task.id === taskId){
+            if (task.id === taskId) {
                 task.doneAt = task.doneAt ? null : new Date()
             }
         })
 
-        this.setState({tasks})
+        this.setState({ tasks })
     }
 
     render() {
@@ -62,9 +82,9 @@ export default class TaskList extends Component {
                 </ImageBackground>
                 <View style={styles.taskList}>
                     <FlatList
-                        data={this.state.tasks}
+                        data={this.state.visibleTasks}
                         keyExtractor={item => `${item.id}`}
-                        renderItem={({item}) => <Task {...item} toggleTask={this.toggleTask}/>}
+                        renderItem={({ item }) => <Task {...item} toggleTask={this.toggleTask} />}
                     />
 
                 </View>
@@ -105,7 +125,7 @@ const styles = StyleSheet.create({
     iconBar: {
         flexDirection: 'row',
         marginHorizontal: 20,
-        justifyContent:'flex-end',
-        marginTop: Platform.OS === 'ios' ? 40: 10
+        justifyContent: 'flex-end',
+        marginTop: Platform.OS === 'ios' ? 40 : 10
     }
 })
