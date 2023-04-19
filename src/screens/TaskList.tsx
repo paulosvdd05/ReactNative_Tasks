@@ -4,6 +4,7 @@ import { View, Text, ImageBackground, StyleSheet, FlatList, TouchableOpacity, Pl
 import commonStyles from '../commonStyles'
 import { Icon } from '@rneui/themed'
 import Task from '../components/Task'
+import AddTask from './AddTask'
 //moment
 import moment from 'moment'
 import 'moment/locale/pt-br'
@@ -16,6 +17,7 @@ export default class TaskList extends Component {
 
     state = {
         showDoneTasks: true,
+        showAddTask: true,
         visibleTasks: [],
         tasks: [{
             id: Math.random(),
@@ -62,13 +64,14 @@ export default class TaskList extends Component {
             }
         })
 
-        this.setState({ tasks })
+        this.setState({ tasks }, this.filterTasks)
     }
 
     render() {
         const today = moment().locale('pt-br').format('ddd, D [de] MMMM')
         return (
             <View style={styles.container}>
+                <AddTask isVisible={this.state.showAddTask} onCancel={() => this.setState({showAddTask: false})}/>
                 <ImageBackground style={styles.background} source={todayImage}>
                     <View style={styles.iconBar}>
                         <TouchableOpacity onPress={this.toggleFilter}>
