@@ -90,7 +90,7 @@ export default class TaskList extends Component {
                         renderItem={({ item }) => <Task {...item} toggleTask={this.toggleTask} />}
                     />
                 </View>
-                <TouchableOpacity style={styles.addButton} onPress={() => this.setState({showAddTask: true})}>
+                <TouchableOpacity activeOpacity={0.7} style={styles.addButton} onPress={() => this.setState({showAddTask: true})}>
                     <Icon name='plus' type='font-awesome' size={20} color={commonStyles.colors.secundary} />
                 </TouchableOpacity>
             </View>
