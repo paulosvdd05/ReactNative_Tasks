@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react'
 import { View, Text, ImageBackground, StyleSheet, FlatList, TouchableOpacity, Platform, Alert } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import commonStyles from '../commonStyles'
 import { Icon } from '@rneui/themed'
 import Task from '../components/Task'
@@ -11,30 +12,25 @@ import 'moment/locale/pt-br'
 
 import todayImage from '../../assets/imgs/today.jpg'
 
+const initialState = {
+    showDoneTasks: true,
+    showAddTask: false,
+    visibleTasks: [],
+    tasks: []
+}
+
 
 
 export default class TaskList extends Component {
 
     state = {
-        showDoneTasks: true,
-        showAddTask: false,
-        visibleTasks: [],
-        tasks: [{
-            id: Math.random(),
-            desc: 'Comprar Livro de React Native',
-            estimateAt: new Date(),
-            doneAt: new Date(),
-        }, {
-            id: Math.random(),
-            desc: 'Ler Livro de React Native',
-            estimateAt: new Date(),
-            doneAt: null,
-        }
-        ]
+        ...initialState
     }
 
-    componentDidMount = () => {
-        this.filterTasks()
+    componentDidMount = async () => {
+        const stateString = await AsyncStorage.getItem('tasksState')
+        const state = JSON.parse(stateString) || initialState
+        this.setState(state, this.filterTasks)
     }
 
     toggleFilter = () => {
@@ -54,6 +50,8 @@ export default class TaskList extends Component {
         }
 
         this.setState({ visibleTasks })
+
+        AsyncStorage.setItem('tasksState', JSON.stringify(this.state))
     }
 
     toggleTask = taskId => {
@@ -86,7 +84,7 @@ export default class TaskList extends Component {
 
     deleteTask = id => {
         const tasks = this.state.tasks.filter(task => task.id !== id)
-        this.setState({tasks}, this.filterTasks)
+        this.setState({ tasks }, this.filterTasks)
     }
 
     render() {
