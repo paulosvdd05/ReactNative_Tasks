@@ -33,7 +33,7 @@ export default class TaskList extends Component {
         ]
     }
 
-    componentDidMount = () =>{
+    componentDidMount = () => {
         this.filterTasks()
     }
 
@@ -41,7 +41,7 @@ export default class TaskList extends Component {
         this.setState({ showDoneTasks: !this.state.showDoneTasks }, this.filterTasks)
     }
 
-    
+
 
     filterTasks = () => {
         let visibleTasks = null
@@ -50,7 +50,7 @@ export default class TaskList extends Component {
         } else {
             const pending = task => task.doneAt === null
             visibleTasks = this.state.tasks.filter(pending)
-            
+
         }
 
         this.setState({ visibleTasks })
@@ -67,8 +67,8 @@ export default class TaskList extends Component {
         this.setState({ tasks }, this.filterTasks)
     }
 
-    addTask = newTask =>{
-        if(!newTask.desc || !newTask.desc.trim()){
+    addTask = newTask => {
+        if (!newTask.desc || !newTask.desc.trim()) {
             Alert.alert('Dados Inválidos', 'Descrição não informada!')
             return
         }
@@ -81,7 +81,12 @@ export default class TaskList extends Component {
             doneAt: null
         })
 
-        this.setState({ tasks, showAddTask: false}, this.filterTasks)
+        this.setState({ tasks, showAddTask: false }, this.filterTasks)
+    }
+
+    deleteTask = id => {
+        const tasks = this.state.tasks.filter(task => task.id !== id)
+        this.setState({tasks}, this.filterTasks)
     }
 
     render() {
@@ -89,8 +94,8 @@ export default class TaskList extends Component {
         return (
             <View style={styles.container}>
                 <AddTask isVisible={this.state.showAddTask}
-                 onCancel={() => this.setState({showAddTask: false})}
-                 onSave={this.addTask}/>
+                    onCancel={() => this.setState({ showAddTask: false })}
+                    onSave={this.addTask} />
                 <ImageBackground style={styles.background} source={todayImage}>
                     <View style={styles.iconBar}>
                         <TouchableOpacity onPress={this.toggleFilter}>
@@ -106,10 +111,10 @@ export default class TaskList extends Component {
                     <FlatList
                         data={this.state.visibleTasks}
                         keyExtractor={item => `${item.id}`}
-                        renderItem={({ item }) => <Task {...item} toggleTask={this.toggleTask} />}
+                        renderItem={({ item }) => <Task {...item} onToggleTask={this.toggleTask} onDelete={this.deleteTask} />}
                     />
                 </View>
-                <TouchableOpacity activeOpacity={0.7} style={styles.addButton} onPress={() => this.setState({showAddTask: true})}>
+                <TouchableOpacity activeOpacity={0.7} style={styles.addButton} onPress={() => this.setState({ showAddTask: true })}>
                     <Icon name='plus' type='font-awesome' size={20} color={commonStyles.colors.secundary} />
                 </TouchableOpacity>
             </View>
@@ -152,15 +157,15 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         marginTop: Platform.OS === 'ios' ? 40 : 10
     },
-    addButton:{
-        position:'absolute',
-        right:30,
-        bottom:30,
-        width:50,
-        height:50,
-        borderRadius:25,
-        backgroundColor:commonStyles.colors.today,
-        justifyContent:'center',
+    addButton: {
+        position: 'absolute',
+        right: 30,
+        bottom: 30,
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        backgroundColor: commonStyles.colors.today,
+        justifyContent: 'center',
         alignItems: 'center'
     }
 })
