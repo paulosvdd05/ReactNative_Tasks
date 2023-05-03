@@ -9,14 +9,18 @@ import AuthInput from '../components/AuthInput'
 
 import { server, showError, showSuccess } from '../common'
 
+const initialState = {
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    stageNew: false
+}
+
 export default class Auth extends Component {
 
     state = {
-        name: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-        stageNew: true
+        ...initialState
 
     }
 
@@ -38,7 +42,7 @@ export default class Auth extends Component {
             })
 
             showSuccess('Usuário cadastrado!!')
-            this.setState({stageNew: false})
+            this.setState({...initialState })
         } catch (e) {
             showError(e)
         }
@@ -73,6 +77,7 @@ export default class Auth extends Component {
                         <AuthInput icon='asterisk' placeholder='Confirmação de Senha'
                             value={this.state.confirmPassword}
                             style={styles.input}
+                            secureTextEntry={true}
                             onChangeText={confirmPassword => this.setState({ confirmPassword })} />
                     }
                     <TouchableOpacity onPress={this.signinOrSignup}>
