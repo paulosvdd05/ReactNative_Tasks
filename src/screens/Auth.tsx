@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
-import { Alert, View, Text, ImageBackground, StyleSheet,  TouchableOpacity } from 'react-native'
+import { Alert, View, Text, ImageBackground, StyleSheet, TouchableOpacity } from 'react-native'
 
+import axios from 'axios'
 
 import backgroundImage from '../../assets/imgs/login.jpg'
 import commonStyles from '../commonStyles'
 import AuthInput from '../components/AuthInput'
+
+import { server, showError, showSuccess } from '../common'
 
 export default class Auth extends Component {
 
@@ -17,11 +20,27 @@ export default class Auth extends Component {
 
     }
 
-    signinOrSignup = () =>{
-        if(this.state.stageNew){
-            Alert.alert('Sucesso!', 'Criar conta')
-        }else{
+    signinOrSignup = () => {
+        if (this.state.stageNew) {
+            this.signup()
+        } else {
             Alert.alert('Sucesso!', 'Logar')
+        }
+    }
+
+    signup = async () => {
+        try {
+            await axios.post(`${server}/signup`, {
+                name: this.state.name,
+                email: this.state.email,
+                password: this.state.password,
+                confirmPassword: this.state.confirmPassword,
+            })
+
+            showSuccess('Usuário cadastrado!!')
+            this.setState({stageNew: false})
+        } catch (e) {
+            showError(e)
         }
     }
 
@@ -65,10 +84,10 @@ export default class Auth extends Component {
                     </TouchableOpacity>
                 </View>
                 <TouchableOpacity onPress={
-                    ()=> this.setState({stageNew: !this.state.stageNew})
-                } style={{padding:10}}>
+                    () => this.setState({ stageNew: !this.state.stageNew })
+                } style={{ padding: 10 }}>
                     <Text style={styles.buttonText}>
-                        {this.state.stageNew ? 'Já possui conta?': 'Ainda não possui conta?'}
+                        {this.state.stageNew ? 'Já possui conta?' : 'Ainda não possui conta?'}
                     </Text>
                 </TouchableOpacity>
             </ImageBackground>
@@ -90,12 +109,12 @@ const styles = StyleSheet.create({
         fontSize: 70,
         marginBottom: 10
     },
-    subTitle:{
+    subTitle: {
         fontFamily: commonStyles.fontFamily,
         color: '#fff',
         fontSize: 20,
-        textAlign:'center',
-        marginBottom:10
+        textAlign: 'center',
+        marginBottom: 10
     },
     input: {
         marginTop: 10,
