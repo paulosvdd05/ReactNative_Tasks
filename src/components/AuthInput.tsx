@@ -6,7 +6,7 @@ export default props => {
     return (
         <View style={[styles.container, props.style]}>
             <Icon name={props.icon} size={20} style={styles.icon}/>
-            <TextInput {...props} style={styles.input} />
+            <TextInput autoCapitalize='none' {...props} style={styles.input}  />
         </View>
     )
 }
