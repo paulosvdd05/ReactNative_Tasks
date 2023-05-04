@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import commonStyles from '../commonStyles'
 import { Icon } from '@rneui/themed'
 import axios from 'axios'
-import {server,showError} from '../common'
+import { server, showError } from '../common'
 import Task from '../components/Task'
 import AddTask from './AddTask'
 //moment
@@ -35,15 +35,16 @@ export default class TaskList extends Component {
         this.setState({
             showDoneTasks: savedState.showDoneTasks
         }, this.filterTasks)
+
         this.loadTasks()
     }
 
-    loadTasks = async() =>{
+    loadTasks = async () => {
         try {
             const maxDate = moment().format('YYYY-MM-DD 23:59:59')
             const res = await axios.get(`${server}/tasks?date=${maxDate}`)
-            this.setState({ tasks: res.data}, this.filterTasks)
-        } catch (e) {
+            this.setState({ tasks: res.data }, this.filterTasks)
+        } catch(e) {
             showError(e)
         }
     }
@@ -77,26 +78,30 @@ export default class TaskList extends Component {
             if (task.id === taskId) {
                 task.doneAt = task.doneAt ? null : new Date()
             }
-        })
+        }) 
 
         this.setState({ tasks }, this.filterTasks)
     }
 
-    addTask = newTask => {
+    addTask = async newTask => {
         if (!newTask.desc || !newTask.desc.trim()) {
             Alert.alert('Dados Inválidos', 'Descrição não informada!')
             return
         }
 
-        const tasks = [...this.state.tasks]
-        tasks.push({
-            id: Math.random(),
-            desc: newTask.desc,
-            estimateAt: newTask.date,
-            doneAt: null
-        })
+        try {
+            await axios.post(`${server}/tasks`, {
+                desc: newTask.desc,
+                estimateAt: newTask.date
+            })
 
-        this.setState({ tasks, showAddTask: false }, this.filterTasks)
+
+            this.setState({ showAddTask: false }, this.loadTasks)
+
+        } catch (e) {
+            showError(e)
+        }
+
     }
 
     deleteTask = id => {
