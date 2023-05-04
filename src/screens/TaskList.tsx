@@ -44,7 +44,7 @@ export default class TaskList extends Component {
             const maxDate = moment().format('YYYY-MM-DD 23:59:59')
             const res = await axios.get(`${server}/tasks?date=${maxDate}`)
             this.setState({ tasks: res.data }, this.filterTasks)
-        } catch(e) {
+        } catch (e) {
             showError(e)
         }
     }
@@ -102,9 +102,13 @@ export default class TaskList extends Component {
 
     }
 
-    deleteTask = id => {
-        const tasks = this.state.tasks.filter(task => task.id !== id)
-        this.setState({ tasks }, this.filterTasks)
+    deleteTask = async taskId => {
+        try {
+            await axios.delete(`${server}/tasks/${taskId}`)
+            await this.loadTasks()
+        } catch (e) {
+            showError(e)
+        }
     }
 
     render() {
