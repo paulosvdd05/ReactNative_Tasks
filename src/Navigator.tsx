@@ -21,10 +21,15 @@ const menuConfig = {
         fontFamily: commonStyles.fontFamily,
         fontWeight: 'bold',
         fontSize: 40,
+        backgroundColor: '#f0f'
+        
     },
-    drawerActiveTintColor: '#070',
+    drawerActiveBackgroundColor: '#68f',
+    drawerActiveTintColor: "#fff",
     drawerInactiveTintColor: "#666",
     headerShown: false,
+    
+
     
 }
 
@@ -38,7 +43,7 @@ const DrawerNavigator = props => {
     return (
 
         
-        <Drawer.Navigator screenOptions={menuConfig} 
+        <Drawer.Navigator  screenOptions={menuConfig} 
             drawerContent={(props) => <Menu {...props}  />}>
             <Drawer.Screen name="Today" options={{ title: 'Hoje' }}>
                 {props => <TaskList {...props} title='Hoje' daysAhead={0} />}
@@ -50,7 +55,7 @@ const DrawerNavigator = props => {
                 {props => <TaskList {...props} title='Semana' daysAhead={7} />}
             </Drawer.Screen>
             <Drawer.Screen name="Month" options={{ title: 'Mês' }}>
-                {props => <TaskList {...props} title='Mês' daysAhead={30} />}
+                {props => <TaskList {...props} title='Mês' daysAhead={30}/>}
             </Drawer.Screen>
         </Drawer.Navigator>
     );
