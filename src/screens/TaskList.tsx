@@ -26,11 +26,13 @@ const initialState = {
 
 
 
+
 export default class TaskList extends Component {
 
     state = {
         ...initialState
     }
+
 
     componentDidMount = async () => {
         const stateString = await AsyncStorage.getItem('tasksState')
@@ -132,6 +134,8 @@ export default class TaskList extends Component {
         }
     }
 
+    
+
 
     render() {
         const today = moment().locale('pt-br').format('ddd, D [de] MMMM')
@@ -169,6 +173,7 @@ export default class TaskList extends Component {
         )
     }
 }
+
 
 const styles = StyleSheet.create({
     container: {

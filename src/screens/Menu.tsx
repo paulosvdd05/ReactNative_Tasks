@@ -26,6 +26,8 @@ export default props => {
         )
     }
 
+    
+
     return (
         <DrawerContentScrollView>
             <View style={styles.header}>
@@ -49,7 +51,7 @@ export default props => {
                     </View>
                 </TouchableOpacity>
             </View>
-            <DrawerItemList {...props} />
+            <DrawerItemList  {...props}  />
         </DrawerContentScrollView>
     )
 }

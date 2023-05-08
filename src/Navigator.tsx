@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -13,19 +13,31 @@ import commonStyles from './commonStyles'
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
+
+
+
 const menuConfig = {
     labelStyle: {
         fontFamily: commonStyles.fontFamily,
-        fontWeight: 'normal',
-        fontSize: 20,
+        fontWeight: 'bold',
+        fontSize: 40,
     },
-    activeTintColor: '#080',
+    drawerActiveTintColor: '#070',
+    drawerInactiveTintColor: "#666",
     headerShown: false,
+    
 }
+
+
+
 
 const DrawerNavigator = props => {
 
+   
+
     return (
+
+        
         <Drawer.Navigator screenOptions={menuConfig} 
             drawerContent={(props) => <Menu {...props}  />}>
             <Drawer.Screen name="Today" options={{ title: 'Hoje' }}>
