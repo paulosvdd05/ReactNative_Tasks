@@ -13,6 +13,9 @@ import moment from 'moment'
 import 'moment/locale/pt-br'
 
 import todayImage from '../../assets/imgs/today.jpg'
+import tomorrowImage from '../../assets/imgs/tomorrow.jpg'
+import weekImage from '../../assets/imgs/week.jpg'
+import monthImage from '../../assets/imgs/month.jpg'
 
 const initialState = {
     showDoneTasks: true,
@@ -111,6 +114,25 @@ export default class TaskList extends Component {
         }
     }
 
+    getImage = () => {
+        switch (this.props.daysAhead) {
+            case 0: return todayImage
+            case 1: return tomorrowImage
+            case 7: return weekImage
+            default:return monthImage
+        }
+    }
+
+    getColor = () => {
+        switch (this.props.daysAhead) {
+            case 0: return commonStyles.colors.today
+            case 1: return commonStyles.colors.tomorrow
+            case 7: return commonStyles.colors.week
+            default:return commonStyles.colors.month
+        }
+    }
+
+
     render() {
         const today = moment().locale('pt-br').format('ddd, D [de] MMMM')
         return (
@@ -118,7 +140,7 @@ export default class TaskList extends Component {
                 <AddTask isVisible={this.state.showAddTask}
                     onCancel={() => this.setState({ showAddTask: false })}
                     onSave={this.addTask} />
-                <ImageBackground style={styles.background} source={todayImage}>
+                <ImageBackground style={styles.background} source={this.getImage()}>
                     <View style={styles.iconBar}>
                         <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
                             <Icon name='bars' size={20} color={commonStyles.colors.secundary} type='font-awesome' />
@@ -139,7 +161,7 @@ export default class TaskList extends Component {
                         renderItem={({ item }) => <Task {...item} onToggleTask={this.toggleTask} onDelete={this.deleteTask} />}
                     />
                 </View>
-                <TouchableOpacity activeOpacity={0.7} style={styles.addButton} onPress={() => this.setState({ showAddTask: true })}>
+                <TouchableOpacity activeOpacity={0.7} style={[styles.addButton, {backgroundColor: this.getColor()}]} onPress={() => this.setState({ showAddTask: true })}>
                     <Icon name='plus' type='font-awesome' size={20} color={commonStyles.colors.secundary} />
                 </TouchableOpacity>
             </View>
@@ -189,7 +211,6 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         borderRadius: 25,
-        backgroundColor: commonStyles.colors.today,
         justifyContent: 'center',
         alignItems: 'center'
     }
