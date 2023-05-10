@@ -12,8 +12,8 @@ import { Image } from '@rneui/base'
 
 const initialState = {
     name: '',
-    email: 'paulodias@gmail.com',
-    password: '123456',
+    email: '',
+    password: '',
     confirmPassword: '',
     stageNew: false
 }
