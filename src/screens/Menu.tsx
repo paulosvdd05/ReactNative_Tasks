@@ -32,6 +32,11 @@ export default props => {
         <DrawerContentScrollView>
             <View style={styles.header}>
                 <Image source={image} style={styles.title} />
+                <Gravatar style={styles.avatar}
+                    options={{
+                        email: props.email,
+                        secure: true
+                    }} />
                 <View style={styles.userInfo}>
                     <Text style={styles.name}>
                         {props.name}
@@ -74,8 +79,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#222'
     },
     userInfo: {
-        justifyContent: 'center',
-        alignItems:'center'
+        marginLeft: 10,
     },
     name: {
         fontFamily: commonStyles.fontFamily,

@@ -78,14 +78,15 @@ export default class Auth extends Component {
 
         const validations = []
         validations.push(this.state.email && this.state.email.includes('@'))
-        validations.push(this.state.password && this.state.password.length >=6)
+        validations.push(this.state.password && this.state.password.length >= 6)
 
-        if(this.state.stageNew){
+        if (this.state.stageNew) {
+            validations.push(this.state.name && this.state.name.trim().length >= 3)
             validations.push(this.state.password === this.state.confirmPassword)
-            validations.push(this.state.name && this.state.name.trim.length >= 3)
         }
 
         const validForm = validations.reduce((t, a) => t && a)
+
 
         return (
             <SafeAreaView
