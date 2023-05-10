@@ -26,7 +26,6 @@ export default props => {
             })
         )
     }
-
     
 
     return (
@@ -43,6 +42,7 @@ export default props => {
                         {props.name}
                     </Text>
                     <Text style={styles.email}>
+                        
                         {props.email}
                     </Text>
                 </View>

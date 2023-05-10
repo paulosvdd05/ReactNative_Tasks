@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Alert, View, Text, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native'
-
+import { CommonActions } from '@react-navigation/native';
 import axios from 'axios'
-
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import backgroundImage from '../../assets/imgs/Task2.png'
 import commonStyles from '../commonStyles'
 import AuthInput from '../components/AuthInput'
@@ -57,7 +57,18 @@ export default class Auth extends Component {
             })
 
             axios.defaults.headers.common['Authorization'] = `bearer ${res.data.token}`
-            this.props.navigation.navigate('Home', res.data)
+            AsyncStorage.setItem('userData', JSON.stringify(res.data))
+            this.props.navigation.dispatch(
+                CommonActions.reset({
+                    index: 0,
+                    routes: [
+                        {
+                            name: 'Home',
+                            params: res.data,
+                        },
+                    ],
+                })
+            )
         }catch(e){
             showError(e)
         }
