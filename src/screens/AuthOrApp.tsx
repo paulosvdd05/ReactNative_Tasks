@@ -1,11 +1,13 @@
+//responsavel pelo carregamento entre as telas
 import React, { Component } from 'react'
 import {
     View,
     ActivityIndicator,
-    StyleSheet
+    StyleSheet,
+    Image
 } from 'react-native'
 import { CommonActions } from '@react-navigation/native';
-
+import backgroundImage from '../../assets/imgs/Task2.png'
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
@@ -53,7 +55,8 @@ export default class AuthOrApp extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <ActivityIndicator size='large' />
+                <Image style={styles.image} source={backgroundImage} />
+                <ActivityIndicator color={'#fff'} size='large' />
             </View>
         )
     }
@@ -64,6 +67,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#000'
+        backgroundColor: '#004AAD'
+    },
+    image:{
+        width: 250,
+        height:100,
     }
 })
