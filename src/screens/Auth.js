@@ -56,6 +56,7 @@ export default class Auth extends Component {
                 password: this.state.password,
             })
 
+            //salvar token, nome e email no asyncstorage para o proximo uso do app
             axios.defaults.headers.common['Authorization'] = `bearer ${res.data.token}`
             AsyncStorage.setItem('userData', JSON.stringify(res.data))
             this.props.navigation.dispatch(
