@@ -43,14 +43,14 @@ export default class Auth extends Component {
             })
 
             showSuccess('Usuário cadastrado!!')
-            this.setState({...initialState })
+            this.setState({ ...initialState })
         } catch (e) {
             showError(e)
         }
     }
 
-    signin = async() =>{
-        try{
+    signin = async () => {
+        try {
             const res = await axios.post(`${server}/signin`, {
                 email: this.state.email,
                 password: this.state.password,
@@ -70,7 +70,7 @@ export default class Auth extends Component {
                     ],
                 })
             )
-        }catch(e){
+        } catch (e) {
             showError(e)
         }
     }
@@ -90,6 +90,7 @@ export default class Auth extends Component {
 
 
         return (
+<>
             <SafeAreaView
                 style={styles.background}>
                 <Image style={styles.title} source={backgroundImage} />
@@ -122,7 +123,7 @@ export default class Auth extends Component {
                     }
                     <TouchableOpacity onPress={this.signinOrSignup}
                         disabled={!validForm}>
-                        <View style={[styles.button, validForm ? {} : {backgroundColor: '#AAA'}]}>
+                        <View style={[styles.button, validForm ? {} : { backgroundColor: '#AAA' }]}>
                             <Text style={styles.buttonText}>
                                 {this.state.stageNew ? 'Registrar' : 'Entrar'}
                             </Text>
@@ -136,7 +137,13 @@ export default class Auth extends Component {
                         {this.state.stageNew ? 'Já possui conta?' : 'Ainda não possui conta?'}
                     </Text>
                 </TouchableOpacity>
+                
             </SafeAreaView>
+            <View style={{backgroundColor:'#004AAD'}}>
+            <Text style={styles.footer}>Developed by Paulo Sergio Dias</Text>
+            </View>
+
+            </>
 
         )
     }
@@ -152,7 +159,7 @@ const styles = StyleSheet.create({
     },
     title: {
         width: 250,
-        height:100,
+        height: 100,
         marginBottom: 10
     },
     subTitle: {
@@ -182,5 +189,11 @@ const styles = StyleSheet.create({
         fontFamily: commonStyles.fontFamily,
         color: '#fff',
         fontSize: 20
+    },
+    footer: {
+        textAlign:'center',
+        padding:5,
+        backgroundColor:'rgba(0,0,0,0.8)',
+        color:'#fff'
     }
 })

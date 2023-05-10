@@ -10,6 +10,7 @@ import { CommonActions } from '@react-navigation/native';
 import backgroundImage from '../../assets/imgs/Task2.png'
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { Text } from '@rneui/base';
 
 export default class AuthOrApp extends Component {
 
@@ -56,6 +57,7 @@ export default class AuthOrApp extends Component {
         return (
             <View style={styles.container}>
                 <Image style={styles.image} source={backgroundImage} />
+                
                 <ActivityIndicator color={'#fff'} size='large' />
             </View>
         )
@@ -69,8 +71,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#004AAD'
     },
-    image:{
+    image: {
         width: 250,
-        height:100,
-    }
+        height: 100,
+    },
+    
 })
