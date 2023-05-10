@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
-import { Alert, View, Text, ImageBackground, StyleSheet, TouchableOpacity } from 'react-native'
+import { Alert, View, Text, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native'
 
 import axios from 'axios'
 
-import backgroundImage from '../../assets/imgs/login.jpg'
+import backgroundImage from '../../assets/imgs/Task2.png'
 import commonStyles from '../commonStyles'
 import AuthInput from '../components/AuthInput'
 
 import { server, showError, showSuccess } from '../common'
+import { Image } from '@rneui/base'
 
 const initialState = {
     name: '',
@@ -76,9 +77,9 @@ export default class Auth extends Component {
         const validForm = validations.reduce((t, a) => t && a)
 
         return (
-            <ImageBackground source={backgroundImage}
+            <SafeAreaView
                 style={styles.background}>
-                <Text style={styles.title}>Tasks</Text>
+                <Image style={styles.title} source={backgroundImage} />
                 <View style={styles.formContainer}>
                     <Text style={styles.subTitle}>
                         {this.state.stageNew ? 'Crie a sua conta' : 'Informe seus dados'}
@@ -122,7 +123,7 @@ export default class Auth extends Component {
                         {this.state.stageNew ? 'Já possui conta?' : 'Ainda não possui conta?'}
                     </Text>
                 </TouchableOpacity>
-            </ImageBackground>
+            </SafeAreaView>
 
         )
     }
@@ -133,12 +134,12 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: '#004AAD'
     },
     title: {
-        fontFamily: commonStyles.fontFamily,
-        color: commonStyles.colors.secundary,
-        fontSize: 70,
+        width: 250,
+        height:100,
         marginBottom: 10
     },
     subTitle: {

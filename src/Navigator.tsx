@@ -24,7 +24,7 @@ const menuConfig = {
         backgroundColor: '#f0f'
         
     },
-    drawerActiveBackgroundColor: '#68f',
+    drawerActiveBackgroundColor: '#004AAD',
     drawerActiveTintColor: "#fff",
     drawerInactiveTintColor: "#666",
     headerShown: false,

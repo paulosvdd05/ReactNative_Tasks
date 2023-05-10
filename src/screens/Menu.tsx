@@ -1,10 +1,11 @@
 import React from 'react'
-import { Platform, ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { Platform, ScrollView, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer'
 import { CommonActions } from '@react-navigation/native';
 import { Gravatar } from 'react-native-gravatar'
 import commonStyles from '../commonStyles'
 
+import image from '../../assets/imgs/Task3.png'
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -31,7 +32,7 @@ export default props => {
     return (
         <DrawerContentScrollView>
             <View style={styles.header}>
-                <Text style={styles.title}>Tasks</Text>
+                <Image source={image} style={styles.title} />
                 <Gravatar style={styles.avatar}
                     options={{
                         email: props.email,
@@ -59,12 +60,13 @@ export default props => {
 const styles = StyleSheet.create({
     header: {
         borderBottomWidth: 1,
-        borderColor: '#DDD'
+        borderColor: '#DDD',
+        justifyContent: 'center',
+        alignItems:'center'
     },
     title: {
-        color: '#000',
-        fontFamily: commonStyles.fontFamily,
-        fontSize: 30,
+        
+        height: 50,
         paddingTop: Platform.OS === 'ios' ? 70 : 30,
         padding: 10
     },
