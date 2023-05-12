@@ -5,7 +5,7 @@ import { CommonActions } from '@react-navigation/native';
 import { Gravatar } from 'react-native-gravatar'
 import commonStyles from '../commonStyles'
 
-import image from '../../assets/imgs/Task3.png'
+import image from '../../assets/imgs/taskspng.png'
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Icon from 'react-native-vector-icons/FontAwesome'
