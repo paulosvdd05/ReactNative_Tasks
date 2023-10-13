@@ -1,7 +1,7 @@
 import { Alert, Platform } from "react-native";
 
 const server = Platform.OS === 'ios'
-    ? 'http://localhost:3000' : 'http://192.168.1.4:3000'
+    ? 'https://tasks-backend-dxv6.onrender.com' : 'https://tasks-backend-dxv6.onrender.com'
 
 function showError(err){
     if (err.response && err.response.data) {
