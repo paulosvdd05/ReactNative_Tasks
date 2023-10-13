@@ -12,10 +12,10 @@ import AddTask from './AddTask'
 import moment from 'moment'
 import 'moment/locale/pt-br'
 
-import todayImage from '../../assets/imgs/today.jpg'
-import tomorrowImage from '../../assets/imgs/tomorrow.jpg'
-import weekImage from '../../assets/imgs/week.jpg'
-import monthImage from '../../assets/imgs/month.jpg'
+import todayImage from '../../assets/imgs/today2.jpg'
+import tomorrowImage from '../../assets/imgs/tomorrow2.jpg'
+import weekImage from '../../assets/imgs/week2.jpg'
+import monthImage from '../../assets/imgs/month2.jpg'
 
 const initialState = {
     showDoneTasks: true,

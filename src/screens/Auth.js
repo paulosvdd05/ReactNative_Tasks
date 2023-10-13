@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Alert, View, Text, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native'
+import { Alert, View, Text, SafeAreaView, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { CommonActions } from '@react-navigation/native';
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -15,7 +15,8 @@ const initialState = {
     email: '',
     password: '',
     confirmPassword: '',
-    stageNew: false
+    stageNew: false,
+    carregando: false
 }
 
 export default class Auth extends Component {
@@ -34,16 +35,20 @@ export default class Auth extends Component {
     }
 
     signup = async () => {
+
         try {
-            await axios.post(`${server}/signup`, {
-                name: this.state.name,
-                email: this.state.email,
-                password: this.state.password,
-                confirmPassword: this.state.confirmPassword,
+            this.setState({ carregando: true }, async () => {
+                await axios.post(`${server}/signup`, {
+                    name: this.state.name,
+                    email: this.state.email,
+                    password: this.state.password,
+                    confirmPassword: this.state.confirmPassword,
+                })
+                this.setState({ carregando: false })
+                showSuccess('Usuário cadastrado!!')
+                this.setState({ ...initialState })
             })
 
-            showSuccess('Usuário cadastrado!!')
-            this.setState({ ...initialState })
         } catch (e) {
             showError(e)
         }
@@ -51,25 +56,29 @@ export default class Auth extends Component {
 
     signin = async () => {
         try {
-            const res = await axios.post(`${server}/signin`, {
-                email: this.state.email,
-                password: this.state.password,
+            this.setState({ carregando: true }, async () => {
+                const res = await axios.post(`${server}/signin`, {
+                    email: this.state.email,
+                    password: this.state.password,
+                })
+
+                //salvar token, nome e email no asyncstorage para o proximo uso do app
+                axios.defaults.headers.common['Authorization'] = `bearer ${res.data.token}`
+                AsyncStorage.setItem('userData', JSON.stringify(res.data))
+                this.props.navigation.dispatch(
+                    CommonActions.reset({
+                        index: 0,
+                        routes: [
+                            {
+                                name: 'Home',
+                                params: res.data,
+                            },
+                        ],
+                    })
+                )
+                this.setState({ carregando: false })
             })
 
-            //salvar token, nome e email no asyncstorage para o proximo uso do app
-            axios.defaults.headers.common['Authorization'] = `bearer ${res.data.token}`
-            AsyncStorage.setItem('userData', JSON.stringify(res.data))
-            this.props.navigation.dispatch(
-                CommonActions.reset({
-                    index: 0,
-                    routes: [
-                        {
-                            name: 'Home',
-                            params: res.data,
-                        },
-                    ],
-                })
-            )
         } catch (e) {
             showError(e)
         }
@@ -90,58 +99,58 @@ export default class Auth extends Component {
 
 
         return (
-<>
-            <SafeAreaView
-                style={styles.background}>
-                <Image style={styles.title} source={backgroundImage} />
-                <View style={styles.formContainer}>
-                    <Text style={styles.subTitle}>
-                        {this.state.stageNew ? 'Crie a sua conta' : 'Informe seus dados'}
-                    </Text>
-                    {this.state.stageNew &&
-                        <AuthInput icon='user' placeholder='Nome'
-                            value={this.state.name}
-                            style={styles.input}
-                            onChangeText={name => this.setState({ name })} />
-                    }
+            <>
+                <SafeAreaView
+                    style={styles.background}>
+                    <Image style={styles.title} source={backgroundImage} />
+                    <View style={styles.formContainer}>
+                        <Text style={styles.subTitle}>
+                            {this.state.stageNew ? 'Crie a sua conta' : 'Informe seus dados'}
+                        </Text>
+                        {this.state.stageNew &&
+                            <AuthInput icon='user' placeholder='Nome'
+                                value={this.state.name}
+                                style={styles.input}
+                                onChangeText={name => this.setState({ name })} />
+                        }
 
-                    <AuthInput icon='at' placeholder='E-mail'
-                        value={this.state.email}
-                        style={styles.input}
-                        onChangeText={email => this.setState({ email })} />
-                    <AuthInput icon='lock' placeholder='Senha'
-                        value={this.state.password}
-                        style={styles.input}
-                        secureTextEntry={true}
-                        onChangeText={password => this.setState({ password })} />
-                    {this.state.stageNew &&
-                        <AuthInput icon='asterisk' placeholder='Confirmação de Senha'
-                            value={this.state.confirmPassword}
+                        <AuthInput icon='at' placeholder='E-mail'
+                            value={this.state.email}
+                            style={styles.input}
+                            onChangeText={email => this.setState({ email })} />
+                        <AuthInput icon='lock' placeholder='Senha'
+                            value={this.state.password}
                             style={styles.input}
                             secureTextEntry={true}
-                            onChangeText={confirmPassword => this.setState({ confirmPassword })} />
-                    }
-                    <TouchableOpacity onPress={this.signinOrSignup}
-                        disabled={!validForm}>
-                        <View style={[styles.button, validForm ? {} : { backgroundColor: '#AAA' }]}>
-                            <Text style={styles.buttonText}>
-                                {this.state.stageNew ? 'Registrar' : 'Entrar'}
-                            </Text>
-                        </View>
+                            onChangeText={password => this.setState({ password })} />
+                        {this.state.stageNew &&
+                            <AuthInput icon='asterisk' placeholder='Confirmação de Senha'
+                                value={this.state.confirmPassword}
+                                style={styles.input}
+                                secureTextEntry={true}
+                                onChangeText={confirmPassword => this.setState({ confirmPassword })} />
+                        }
+                        <TouchableOpacity onPress={this.signinOrSignup}
+                            disabled={!validForm}>
+                            <View style={[styles.button, validForm ? {} : { backgroundColor: '#AAA' }]}>
+                                <Text style={styles.buttonText}>
+                                    {this.state.carregando ? <ActivityIndicator size={25} color='#fff' /> : this.state.stageNew ? 'Registrar' : 'Entrar'}
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                    <TouchableOpacity onPress={
+                        () => this.setState({ stageNew: !this.state.stageNew })
+                    } style={{ padding: 10 }}>
+                        <Text style={styles.buttonText}>
+                            {this.state.stageNew ? 'Já possui conta?' : 'Ainda não possui conta?'}
+                        </Text>
                     </TouchableOpacity>
+
+                </SafeAreaView>
+                <View style={{ backgroundColor: '#004AAD' }}>
+                    <Text style={styles.footer}>Developed by Paulo Sergio Dias</Text>
                 </View>
-                <TouchableOpacity onPress={
-                    () => this.setState({ stageNew: !this.state.stageNew })
-                } style={{ padding: 10 }}>
-                    <Text style={styles.buttonText}>
-                        {this.state.stageNew ? 'Já possui conta?' : 'Ainda não possui conta?'}
-                    </Text>
-                </TouchableOpacity>
-                
-            </SafeAreaView>
-            <View style={{backgroundColor:'#004AAD'}}>
-            <Text style={styles.footer}>Developed by Paulo Sergio Dias</Text>
-            </View>
 
             </>
 
@@ -176,7 +185,10 @@ const styles = StyleSheet.create({
     formContainer: {
         backgroundColor: 'rgba(0,0,0,0.8)',
         padding: 20,
-        width: '90%'
+        width: '90%',
+        borderRadius: 25,
+        shadowColor: '#171717',
+        elevation: 10,
     },
     button: {
         backgroundColor: '#070',
@@ -191,9 +203,9 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     footer: {
-        textAlign:'center',
-        padding:5,
-        backgroundColor:'rgba(0,0,0,0.8)',
-        color:'#fff'
+        textAlign: 'center',
+        padding: 5,
+        backgroundColor: 'rgba(0,0,0,0.8)',
+        color: '#fff'
     }
 })
