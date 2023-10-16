@@ -93,9 +93,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.tasks"
+    namespace "com.tasksPauloDias"
     defaultConfig {
-        applicationId "com.tasks"
+        applicationId "com.tasksPauloDias"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
