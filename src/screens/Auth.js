@@ -61,6 +61,10 @@ export default class Auth extends Component {
                     email: this.state.email,
                     password: this.state.password,
                 })
+                .catch((e) => {
+                    showError(e)
+                    this.setState(initialState)
+                })
 
                 //salvar token, nome e email no asyncstorage para o proximo uso do app
                 axios.defaults.headers.common['Authorization'] = `bearer ${res.data.token}`
