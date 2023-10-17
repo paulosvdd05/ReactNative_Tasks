@@ -6,7 +6,7 @@ export default props => {
     return (
         <View style={[styles.container, props.style]}>
             <Icon name={props.icon} size={20} style={styles.icon}/>
-            <TextInput autoCapitalize='none' {...props} style={styles.input}  />
+            <TextInput placeholderTextColor='#ccc' autoCapitalize='none' {...props} style={styles.input}  />
         </View>
     )
 }
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     container:{
         width: '100%',
         height:40,
-        backgroundColor: '#EEE',
+        backgroundColor: '#fff',
         borderRadius:20,
         flexDirection:'row',
         alignItems:'center'
@@ -27,5 +27,7 @@ const styles = StyleSheet.create({
     input:{
         marginLeft:20,
         width:'70%',
+        color:'#333',
+        backgroundColor:'#fff'
     }
 })
