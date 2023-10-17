@@ -181,6 +181,7 @@ const styles = StyleSheet.create({
     input: {
         marginTop: 10,
         backgroundColor: '#fff',
+        color:'#000'
     },
     formContainer: {
         backgroundColor: 'rgba(0,0,0,0.8)',
