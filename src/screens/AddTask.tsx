@@ -58,6 +58,7 @@ export default class AddTask extends Component {
                     <TextInput style={styles.input}
                         placeholder='Informe a Descrição...'
                         value={this.state.desc}
+                        placeholderTextColor='#777'
                         onChangeText={desc => this.setState({ desc })}
                     />
                     {this.getDatePicker()}
@@ -111,11 +112,13 @@ const styles = StyleSheet.create({
         margin: 15,
         backgroundColor: '#fff',
         borderWidth: 1,
-        borderColor: '#E4E4E3'
+        borderColor: '#E4E4E3',
+        color:'#333'
     },
     date: {
         fontFamily: commonStyles.fontFamily,
         fontSize: 20,
-        marginLeft: 15
+        marginLeft: 15,
+        color:'#333'
     }
 })
